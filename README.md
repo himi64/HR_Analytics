@@ -16,3 +16,12 @@ Description of Dataset:
 8. sales - department the employee is working in
 9. salary - salary classified into 'low', 'medium', 'high'
 10. left - whether or not the employee left the company (binary)
+
+Machine Learning classification methods used:
+- Clustering
+- Naive-Bayes
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- K-nearest neighbor
+- Support vector machines (linear, polynomial, radial, sigmoid kernels)
