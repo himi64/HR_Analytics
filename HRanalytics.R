@@ -7,7 +7,9 @@
 
 
 ################################################
-### DATA PREPROCESSING 
+### DATA PREPROCESSING
+
+set.seed(123) # for consistent results
 
 # read data
 HRdata = read.csv("HRdata.csv")
@@ -26,7 +28,7 @@ sum(is.na(HRdata$left))
 
 HRdata = na.omit(HRdata)
 
-# encode categorical variables
+# encode categorical variables (needed for knn algorithm)
 HRdata$sales = factor(HRdata$sales,
                        levels = c('hr', 'IT', 'management', 'marketing', 'product_mng', 'RanD', 'sales', 'support', 'technical', 'accounting'),
                        labels = c(1,2,3,4,5,6,7,8,9,10))
@@ -60,15 +62,15 @@ summary(logistic_reg)
 
 # predict test set results
 logistic_reg_pred = predict(logistic_reg, type = 'response', newdata=test_set[-10])
-logistic_reg_y_pred = ifelse(prediction > 0.5, 1, 0)
+logistic_reg_y_pred = ifelse(logistic_reg_pred > 0.5, 1, 0)
 
 # create confusion matrix for accuracy test
 logistic_reg_cm = table(test_set[, 10], logistic_reg_y_pred > 0.5)
 logistic_reg_cm
 
 # accuracy
-(1996+252)/(1996+164+437+252)
-# = 78% accuracy
+(2119+246)/(2119+246+468+167)
+# = 78.33% accuracy
 
 #############################################
 ### DECISION TREE CLASSIFICATION
@@ -79,17 +81,16 @@ decisiontree = rpart(left~., data=training_set)
 rpart.plot(decisiontree) #NB: remove scaling when plotting tree
 
 # predict using the test set
-decisiontree_pred = predict(decisiontree, newdata=test_set[-10])
-decisiontree_y_pred = ifelse(prediction > 0.5, 1, 0) 
-# assume 0.5 as the threshold for left/not left
+decisiontree_pred = predict(decisiontree, newdata=test_set[-10], type='class')
+decisiontree_pred
 
 # assess accuracy using confusion matrix
-decisiontree_cm = table(test_set[, 10], decisiontree_y_pred)
+decisiontree_cm = table(test_set[, 10], decisiontree_pred)
 decisiontree_cm
 
 # accuracy
-(2010+253)/(2010+160+434+253)
-# = 79.2%'
+(2260+649)/(2260+649+65+26)
+# = 96.97%
 
 #############################################
 ### RANDOM FOREST CLASSIFICATION (a type of enseble learning)
@@ -102,7 +103,7 @@ library(randomForest)
 ?randomForest()
 randomforest = randomForest(x=training_set[-10][-8],
                             y=training_set$left,
-                            ntree=20) # need to exclude sales col because of NA
+                            ntree=100) # need to exclude sales col because of NA
 
 # predict test set results
 randomforest_pred = predict(randomforest, newdata=test_set[-10][-8])
@@ -113,18 +114,20 @@ randomforest_cm = table(test_set[, 10], randomforest_pred)
 randomforest_cm #need to fix the CM
 
 # accuracy
-(2281+682)/(2281+682+52+5) # 98.11% for 100 trees
-(2281+688)/(2281+688+26+5) # 98.97% for 200 trees
+(2282+669)/(2282+669+45+4) # 98.36% for 20 trees
+(2284+670)/(2284+670+44+2) # 98.47% for 100 trees
 
 #############################################
 ### K-NEAREST NEIGHBOR CLASSIFICATION
+# NB: Must encode categorical variables firt -> remove NA -> split into train and test
 library(class)
 
 # build the knn classifier
 knn_y_pred = knn(train = training_set[, -10],
                  test = test_set[, -10],
                  cl = training_set[, 10],
-                 k = 5)
+                 k = 5,
+                 prob = TRUE)
 
 knn_y_pred
 
@@ -133,8 +136,8 @@ knn_cm = table(test_set[, 10], knn_y_pred)
 knn_cm
 
 # accuracy
-(1995+623)/(1995+623+67+157)
-# = 92.11% for k=5
+(2031+635)/(2031+635+55+121)
+# = 93.81% for k=5
 
 #############################################
 ### NAIVE BAYES CLASSIFICATION
@@ -156,10 +159,11 @@ nb_cm = table(test_set[, 10], nb_predict)
 nb_cm
 
 # accuracy
-
+(1856+505)/(1856+505+209+430)
+# 78.7% accuracy
 
 #############################################
-### SUPPORT VECTOR MACHINE CLASSIFICATION (LINEAR)
+### SUPPORT VECTOR MACHINE CLASSIFICATION
 library(e1071)
 
 # 1. build classifier using linear kernel
@@ -175,6 +179,8 @@ linear_svm_pred
 linear_svm_cm = table(test_set[, 10], linear_svm_pred)
 linear_svm_cm
 
+(2150+173)/(2150+173+541+136)
+
 # 2. build classifier using polynomial kernel
 poly_svm = svm(left~., data=training_set, 
                  type = 'C-classification',
@@ -187,6 +193,8 @@ poly_svm_pred
 # confusion matrix
 poly_svm_cm = table(test_set[, 10], poly_svm_pred)
 poly_svm_cm
+
+(2221+625)/(2221+625+89+65)
 
 # 3. build classifier using radial basis kernel
 radial_svm = svm(left~., data=training_set, 
@@ -201,6 +209,8 @@ radial_svm_pred
 radial_svm_cm = table(test_set[, 10], radial_svm_pred)
 radial_svm_cm
 
+(2208+639)/(2208+639+75+78)
+
 # 4. build classifier using sigmoid kernel
 sigmoid_svm = svm(left~., data=training_set, 
                  type = 'C-classification',
@@ -214,9 +224,11 @@ sigmoid_svm_pred
 sigmoid_svm_cm = table(test_set[, 10], sigmoid_svm_pred)
 sigmoid_svm_cm
 
+(1679+37)/(1679+37+677+607)
+
 # accuracy of various kernels:
-# linear: 77.09%
-# polynomial: 94.72%
-# radial basis: 95.57%
-# sigmoid: 57.74%
+# linear: 77.43%
+# polynomial: 94.87%
+# radial basis: 94.90%
+# sigmoid: 57.20%
 
