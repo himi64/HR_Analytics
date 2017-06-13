@@ -35,6 +35,11 @@ HRdata$salary= factor(HRdata$salary,
                        levels = c('low', 'medium', 'high'),
                        labels = c(1,2,3))
 
+# encode target feature as a factor (needed for naive bayes, but can be specified for other classifiers also)
+HRdata$left = factor(HRdata$left,
+                     levels = c('0','1'),
+                     labels = c(0,1))
+
 # split data into train and test
 library(caTools)
 
@@ -105,7 +110,7 @@ randomforest
 
 # confusion matrix
 randomforest_cm = table(test_set[, 10], randomforest_pred)
-randomforest_cm
+randomforest_cm #need to fix the CM
 
 # accuracy
 (2281+682)/(2281+682+52+5) # 98.11% for 100 trees
@@ -134,24 +139,80 @@ knn_cm
 #############################################
 ### NAIVE BAYES CLASSIFICATION
 
+library(e1071)
+
+# fit the naive bayes classifier to the training set
+nb_classifier = naiveBayes(x = training_set[-10],
+                           y = training_set$left)
+
+# predict the test set results using algorithm
+nb_predict = predict(nb_classifier, newdata = test_set[-10])
+nb_predict 
+# Naive bayes doesnt recognize the output (left) as a factor (binary)
+# so you need to encode $left data as a factor in the data preprocessing step
+
+# create confusion matrix
+nb_cm = table(test_set[, 10], nb_predict)
+nb_cm
+
+# accuracy
 
 
 #############################################
 ### SUPPORT VECTOR MACHINE CLASSIFICATION (LINEAR)
 library(e1071)
 
-# build classifier using linear kernel
+# 1. build classifier using linear kernel
 linear_svm = svm(left~., data=training_set, 
                  type = 'C-classification',
-                 kernel = 'radial')
+                 kernel = 'linear')
 
 # predict on the test set
-linear_svm_pred = predict(linear_svm, newdata = test_set)
+linear_svm_pred = predict(linear_svm, newdata = test_set[-10])
 linear_svm_pred
 
 # confusion matrix
 linear_svm_cm = table(test_set[, 10], linear_svm_pred)
 linear_svm_cm
+
+# 2. build classifier using polynomial kernel
+poly_svm = svm(left~., data=training_set, 
+                 type = 'C-classification',
+                 kernel = 'polynomial')
+
+# predict on the test set
+poly_svm_pred = predict(poly_svm, newdata = test_set)
+poly_svm_pred
+
+# confusion matrix
+poly_svm_cm = table(test_set[, 10], poly_svm_pred)
+poly_svm_cm
+
+# 3. build classifier using radial basis kernel
+radial_svm = svm(left~., data=training_set, 
+                 type = 'C-classification',
+                 kernel = 'radial')
+
+# predict on the test set
+radial_svm_pred = predict(radial_svm, newdata = test_set)
+radial_svm_pred
+
+# confusion matrix
+radial_svm_cm = table(test_set[, 10], radial_svm_pred)
+radial_svm_cm
+
+# 4. build classifier using sigmoid kernel
+sigmoid_svm = svm(left~., data=training_set, 
+                 type = 'C-classification',
+                 kernel = 'sigmoid')
+
+# predict on the test set
+sigmoid_svm_pred = predict(sigmoid_svm, newdata = test_set)
+sigmoid_svm_pred
+
+# confusion matrix
+sigmoid_svm_cm = table(test_set[, 10], sigmoid_svm_pred)
+sigmoid_svm_cm
 
 # accuracy of various kernels:
 # linear: 77.09%
