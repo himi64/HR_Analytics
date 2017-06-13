@@ -18,10 +18,13 @@ Description of Dataset:
 10. left - whether or not the employee left the company (binary)
 
 Machine Learning classification methods used:
-- Clustering
-- Naive-Bayes
-- Logistic Regression
-- Decision Tree
-- Random Forest
-- K-nearest neighbor
+- Logistic Regression: accuracy = 78.33%)
+- Decision Tree: accuracy = 96.97%)
+- Random Forest: accuracy = 98.36 (20 trees), 98.47% (100 trees)
+- K-nearest neighbor: accuracy = 93.81% for k=5, 93.63 for k=10
+- Naive Bayes: accuracy = 78.7%
 - Support vector machines (linear, polynomial, radial, sigmoid kernels)
+  - Linear: accuracy = 77.43%
+  - Polynomial: accuracy = 94.87%
+  - Radial basis: accuracy = 94.90%
+  - Sigmoid: accuracy = 57.20%
