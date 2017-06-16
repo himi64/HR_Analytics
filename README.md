@@ -5,6 +5,7 @@ Dataset: HRdata.csv
 Dataset obtained from Kaggle
 
 Description of Dataset:
+----
 
 1. satisfaction_level - satisfaction rating between 0-1
 2. last_evaluation - last evaluation score between 0-1
@@ -18,6 +19,7 @@ Description of Dataset:
 10. left - whether or not the employee left the company (binary)
 
 Machine Learning classification methods used:
+----
 - Logistic Regression: accuracy = 78.33%)
 - Decision Tree: accuracy = 96.97%)
 - Random Forest: accuracy = 98.36 (20 trees), 98.47% (100 trees)
@@ -30,7 +32,7 @@ Machine Learning classification methods used:
   - Sigmoid: accuracy = 57.20%
 
 Neural Network
-
+----
 Dummy variable: department
 - technical: col 0
 - support: col 1
