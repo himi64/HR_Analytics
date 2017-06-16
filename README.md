@@ -31,7 +31,7 @@ Machine Learning classification methods used:
 
 Neural Network
 
-Dummy variable: department
+Dummy variable - department
 technical: col 0
 support: col 1
 IT: col 0 & 2
@@ -43,7 +43,7 @@ marketing: col 0 & 7
 product_mng: col 0 & 8
 sales: col 0 & 9
 ----
-Dummy variable: salary
+Dummy variable - salary
 low: col 18 = 1
 medium: col 18 = 2
 high: col 18 = 0
