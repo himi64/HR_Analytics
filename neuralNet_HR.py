@@ -21,7 +21,6 @@ X = HRdata[:, 0:9]
 y = HRdata[:, 9]
 
 # encode categorical variables
-HRdata.dtypes
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 labelencoder_X = LabelEncoder()
 X[:, 7] = labelencoder_X.fit_transform(X[:, 7])
@@ -45,6 +44,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
+X_test = sc.fit_transform(X_test)
 
 ### BUILD THE ARTIFICIAL NEURAL NETWORK ################
 
@@ -80,8 +80,26 @@ classifier.compile(optimizer = 'adam',
 # fit the ANN on the training & testing set
 classifier.fit(X_train, y_train, batch_size = 10, epochs = 50)
 
-
 ### EVALUATE ACCURACY WITH TEST SET ####################
+y_pred = classifier.predict(X_test)
+y_pred = (y_pred > 0.5) # threshold for left or no left
 
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_test, y_pred)
 
 ### TEST THE NEURAL NET WITH EXAMPLE DATA ##############
+
+'''
+dept: col 0 & 9 (sales)
+satisfaction_level: 0.2
+last_evaluation: 0.3
+number_project: 2
+average_montly_hours: 200
+time_spend_company: 1
+Work_accident: 0
+promotion_last_5years: 0
+salary: 1 (low)
+'''
+
+sample_row = sc.transform(np.array([[1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0.2, 0.3, 2, 200, 1, 0, 0, 1]]))
+sample_predict = classifier.predict(sample_row)
