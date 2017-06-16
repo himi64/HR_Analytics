@@ -32,16 +32,16 @@ Machine Learning classification methods used:
 Neural Network
 
 Dummy variable - department
-technical: col 0
-support: col 1
-IT: col 0 & 2
-RandD: col 0 & 3
-accounting: col 0 & 4
-hr: col 0 & 5
-management: col 0 & 6
-marketing: col 0 & 7
-product_mng: col 0 & 8
-sales: col 0 & 9
+technical - col 0
+support - col 1
+IT - col 0 & 2
+RandD - col 0 & 3
+accounting - col 0 & 4
+hr - col 0 & 5
+management - col 0 & 6
+marketing - col 0 & 7
+product_mng - col 0 & 8
+sales - col 0 & 9
 ----
 Dummy variable - salary
 low: col 18 = 1
