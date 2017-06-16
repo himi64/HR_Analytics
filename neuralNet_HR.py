@@ -17,6 +17,8 @@ import matplotlib.pyplot as plt
 data = pd.read_csv("HRdata.csv")
 HRdata = np.array(data) # convert to numpy array for slicing
 
+# X.dtypes
+
 X = HRdata[:, 0:9]
 y = HRdata[:, 9]
 
@@ -84,8 +86,19 @@ classifier.fit(X_train, y_train, batch_size = 10, epochs = 50)
 y_pred = classifier.predict(X_test)
 y_pred = (y_pred > 0.5) # threshold for left or no left
 
+# create confusion matrix (needs to be fixed)
 from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_test, y_pred)
+prediction = []
+for row in y_pred:
+    if row > 0.5:
+        prediction.append([1])
+    else: prediction.append([0])  
+    
+
+y_test = pd.to_numeric(y_test)
+
+cm = confusion_matrix(prediction, y_test)
+# accuracy = (2812 + 772)/(2812 + 772+69+97) = 95.57%
 
 ### TEST THE NEURAL NET WITH EXAMPLE DATA ##############
 
