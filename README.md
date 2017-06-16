@@ -29,7 +29,8 @@ Machine Learning classification methods used:
   - Radial basis: accuracy = 94.90%
   - Sigmoid: accuracy = 57.20%
 
-Neural Network:
+Neural Network
+
 Dummy variable: department
 technical: col 0
 support: col 1
