@@ -13,7 +13,7 @@ Description of Dataset:
 5. time_spend_company - number of years working at the company
 6. Work_accident - whether or not a worker had an accident during their time (binary)
 7. promotion_last_5years - whether or not a worker got promoted in the last 5 years (binary)
-8. sales - department the employee is working in
+8. dept - department the employee is working in: sales, accounting, hr, technical, support, management, IT, product_mng, marketing, RandD
 9. salary - salary classified into 'low', 'medium', 'high'
 10. left - whether or not the employee left the company (binary)
 
@@ -28,3 +28,21 @@ Machine Learning classification methods used:
   - Polynomial: accuracy = 94.87%
   - Radial basis: accuracy = 94.90%
   - Sigmoid: accuracy = 57.20%
+
+Neural Network:
+Dummy variable: department
+technical: col 0
+support: col 1
+IT: col 0 & 2
+RandD: col 0 & 3
+accounting: col 0 & 4
+hr: col 0 & 5
+management: col 0 & 6
+marketing: col 0 & 7
+product_mng: col 0 & 8
+sales: col 0 & 9
+----
+Dummy variable: salary
+low: col 18 = 1
+medium: col 18 = 2
+high: col 18 = 0
