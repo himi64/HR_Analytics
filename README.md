@@ -42,7 +42,7 @@ management - col 0 & 6
 marketing - col 0 & 7
 product_mng - col 0 & 8
 sales - col 0 & 9
-----
+
 Dummy variable - salary
 low: col 18 = 1
 medium: col 18 = 2
