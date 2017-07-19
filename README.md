@@ -4,8 +4,7 @@ Applying various machine learning techniques to identify the best algorithms to 
 Dataset: HRdata.csv
 Dataset obtained from Kaggle
 
-Description of Dataset:
-----
+## Description of Dataset:
 
 1. satisfaction_level - satisfaction rating between 0-1
 2. last_evaluation - last evaluation score between 0-1
@@ -18,10 +17,10 @@ Description of Dataset:
 9. salary - salary classified into 'low', 'medium', 'high'
 10. left - whether or not the employee left the company (binary)
 
-Machine Learning classification methods used:
-----
-- Logistic Regression: accuracy = 78.33%)
-- Decision Tree: accuracy = 96.97%)
+## Machine Learning classification methods used:
+
+- Logistic Regression: accuracy = 78.33%
+- Decision Tree: accuracy = 96.97%
 - Random Forest: accuracy = 98.36 (20 trees), 98.47% (100 trees)
 - K-nearest neighbor: accuracy = 93.81% for k=5, 93.63 for k=10
 - Naive Bayes: accuracy = 78.7%
@@ -31,8 +30,8 @@ Machine Learning classification methods used:
   - Radial basis: accuracy = 94.90%
   - Sigmoid: accuracy = 57.20%
 
-Neural Network
-----
+### Neural Network
+
 Dummy variable: department
 - technical: col 0
 - support: col 1
