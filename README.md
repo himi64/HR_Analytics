@@ -5,6 +5,17 @@ Dataset: HRdata.csv
 
 Dataset obtained from Kaggle
 
+## Instructions for package installation:
+
+Installing Theano
+pip install --upgrade --no-deps git+git://github.com/Theano/Theano.git
+
+Installing Tensorflow
+pip install tensorflow
+
+Installing Keras
+pip install --upgrade keras
+
 ## Description of Dataset:
 
 1. satisfaction_level - satisfaction rating between 0-1
@@ -17,19 +28,6 @@ Dataset obtained from Kaggle
 8. dept - department the employee is working in: sales, accounting, hr, technical, support, management, IT, product_mng, marketing, RandD
 9. salary - salary classified into 'low', 'medium', 'high'
 10. left - whether or not the employee left the company (binary)
-
-## Machine Learning classification methods used:
-
-- Logistic Regression: accuracy = 78.33%
-- Decision Tree: accuracy = 96.97%
-- Random Forest: accuracy = 98.36 (20 trees), 98.47% (100 trees)
-- K-nearest neighbor: accuracy = 93.81% for k=5, 93.63 for k=10
-- Naive Bayes: accuracy = 78.7%
-- Support vector machines (linear, polynomial, radial, sigmoid kernels)
-  - Linear: accuracy = 77.43%
-  - Polynomial: accuracy = 94.87%
-  - Radial basis: accuracy = 94.90%
-  - Sigmoid: accuracy = 57.20%
 
 ### Neural Network
 
@@ -49,3 +47,16 @@ Dummy variable - salary
 - low: col 18 = 1
 - medium: col 18 = 2
 - high: col 18 = 0
+
+## Machine Learning classification methods used:
+
+- Logistic Regression: accuracy = 78.33%
+- Decision Tree: accuracy = 96.97%
+- Random Forest: accuracy = 98.36 (20 trees), 98.47% (100 trees)
+- K-nearest neighbor: accuracy = 93.81% for k=5, 93.63 for k=10
+- Naive Bayes: accuracy = 78.7%
+- Support vector machines (linear, polynomial, radial, sigmoid kernels)
+  - Linear: accuracy = 77.43%
+  - Polynomial: accuracy = 94.87%
+  - Radial basis: accuracy = 94.90%
+  - Sigmoid: accuracy = 57.20%
